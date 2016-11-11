@@ -50,5 +50,6 @@ typedef struct {
 widget_t * widget_create(int width, int height, int type, void * source);
 void widget_update(widget_t * widget);
 void widget_resize(widget_t * widget, int new_width, int new_height);
+void widget_set_config(widget_t * widget, widget_config_t config);
 void widget_destroy(widget_t * widget);
 #endif
