@@ -1,8 +1,10 @@
 #include "widget.h"
 
 void _widget_render_text(widget_t * widget);
+
 widget_config_t _get_config();
-widget_t * widget_create(int width, int height, widget_type_t type, void * source)
+
+widget_t * widget_create(unsigned int width, unsigned int height, widget_type_t type, void * source)
 {
          widget_t *widget = (widget_t *) malloc(sizeof(widget_t));
 
@@ -28,10 +30,29 @@ widget_config_t _get_config()
         config.font_size = 16.0;
         config.line_width = 3.0;
         
-        return config
-        
+        return config;
 }
 
-
-
-
+void widget_set_config(widget_t * widget, widget_config_t config) {
+        widget->config = config;
+}
+void widget_update(widget_t * widget)
+{
+        switch (widget->config.type) {
+        case WTYPE_TEXT:
+                _widget_render_text(widget);
+                break;
+        default:
+                break;
+        }
+}
+void widget_resize(widget_t * widget, unsigned int new_width, unsigned int new_height)
+{
+        widget->size.width = new_width;
+        widget->size.height = new_height;
+        widget_update(widget);
+}
+void widget_destroy(widget_t * widget)
+{
+        free(widget);
+}
